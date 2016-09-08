@@ -4,10 +4,10 @@ import { addTranslation } from './translation';
 
 export function push(data){
   console.log('Pushing location', data);
-  let locationId = pushData('locations', data);
-  addTranslation('locations/' + locationId, {title: data.title});
+  let id = pushData('locations', data);
+  addTranslation(`locations/${id}`, {name: data.name});
 
-  return locationId;
+  return id;
 }
 
 export function loadLocation(locationId){
@@ -21,4 +21,9 @@ export function loadLocations(){
 
 export function remove(locationId){
   return removeData(`locations/${locationId}`);
+}
+
+
+export function updateLocation(id, values){
+  return update(`locations/${id}`, values);
 }

@@ -10,8 +10,15 @@ import Sidebar from './common/sidebar';
 
 import Home from './routes/home';
 import Login from './routes/Login';
+
+import Countries from './routes/Countries/index';
+import ManageCountries from './routes/Countries/Manage';
+
 import Locations from './routes/Locations/index';
 import ManageLocations from './routes/Locations/Manage';
+
+import Areas from './routes/Areas/index';
+import ManageAreas from './routes/Areas/Manage';
 
 class App extends React.Component {
   render(){
@@ -37,16 +44,24 @@ class App extends React.Component {
 export default (
 
     <Route>
-      <Route>
-        <Route path='login' component={Login}/>
+      <Route path="/" component={App}>
+        <IndexRoute component={Home}/>
         <Route path="locations" component={Locations}/>
+        <Route path="locations/add" component={ManageLocations}/>
+        <Route path="locations/:id" component={ManageLocations}/>
+
+        <Route path="areas" component={Areas}/>
+        <Route path="areas/add" component={ManageAreas}/>
+        <Route path="areas/:id" component={ManageAreas}/>
+
+        <Route path="countries" component={Countries}/>
+        <Route path="countries/add" component={ManageCountries}/>
+        <Route path="countries/:id" component={ManageCountries}/>
 
       </Route>
 
-      <Route path='/' component={App}>
-        <IndexRoute component={Home}/>
-        <Route path="locations/add" component={ManageLocations}/>
-        <Route path="locations/:id" component={ManageLocations}/>
+      <Route>
+        <Route path='login' component={Login}/>
       </Route>
     </Route>
 );

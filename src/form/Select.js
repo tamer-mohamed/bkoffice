@@ -12,7 +12,11 @@ class Select extends React.Component {
                        placeholder="select"
                        value={this.props.getValue()}
                        onChange={(e) => this.props.setValue(e.target.value)}>
-            {this.props.options.map(option=><option key={option.id} value={option.id}>{option.title}</option>)}
+            {this.props.options.map(option =>
+                <option key={option.id} value={option.id}>
+                  {option.title}
+                </option>
+            )}
           </FormControl>
         </FormGroup>
     );

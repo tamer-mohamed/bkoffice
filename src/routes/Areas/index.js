@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import forEach from 'lodash/foreach';
 import pull from 'lodash/pull';
 import remove from 'lodash/remove';
-import * as dataLocations from '../../model/locations';
 import * as dataAreas from '../../model/areas';
+import * as dataLocationAreas from '../../model/locationAreas';
 import { withRouter,Link } from 'react-router';
 
 
@@ -21,15 +21,15 @@ import {
 } from '@sketchpixy/rubix';
 
 
-class LocationsList extends React.Component {
+class AreasList extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {locations: {}, loaded: false};
+    this.state = {areas: {}, loaded: false};
   }
 
   fetchData(){
-    dataLocations.loadLocations().then((locations) => this.setState({locations: locations.val(), loaded: true}));
+    dataAreas.loadAreas().then(snap => this.setState({areas: snap.val(), loaded: true}));
   }
 
   componentWillMount(){
@@ -47,14 +47,17 @@ class LocationsList extends React.Component {
         });
   }
 
-  handleRemove(locationId, location){
-    let confirm = window.confirm('Are you sure you want to delete ' + location.name + '?!');
+  handleRemove(id, data){
+    let confirm = window.confirm('Are you sure you want to delete ' + data.name + '?!');
     if(confirm){
-      dataLocations.remove(locationId)
-          .then(_ =>{
-            console.log('DONE!!');
-            this.fetchData();
-          })
+      dataLocationAreas.remove(data.location,id).then(() => {
+        dataAreas.removeArea(id)
+            .then(_ =>{
+              console.log('DONE!!');
+              this.fetchData();
+            })
+      });
+
     }
 
   }
@@ -64,9 +67,9 @@ class LocationsList extends React.Component {
       return <span>Loading ....</span>;
 
     let rows = [];
-    forEach(this.state.locations, (v, k) =>{
+    forEach(this.state.areas, (v, k) =>{
       rows.push(<tr key={k}>
-        <td><Link to={`locations/${k}`}>{v.name}</Link></td>
+        <td><Link to={`areas/${k}`}>{v.name}</Link></td>
         <td>
           <Button bsStyle="danger" onClick={e => this.handleRemove(k,v)}> X </Button>
         </td>
@@ -82,7 +85,7 @@ class LocationsList extends React.Component {
                   <Col xs={12}>
                     <h3>Locations</h3>
                     <span className="pull-right">
-                      <Link to="locations/add"><Button bsStyle="primary">Add</Button></Link>
+                      <Link to="areas/add"><Button bsStyle="primary">Add</Button></Link>
                     </span>
                   </Col>
                 </Row>
@@ -95,15 +98,13 @@ class LocationsList extends React.Component {
                     <Table ref={(c) => this.locationTable = c} className='display' cellSpacing='0' width='100%'>
                       <thead>
                       <tr>
-                        <th>State</th>
-                        <th>Country</th>
+                        <th>Area</th>
                         <th></th>
                       </tr>
                       </thead>
                       <tfoot>
                       <tr>
-                        <th>State</th>
-                        <th>Country</th>
+                        <th>Area</th>
                         <th></th>
                       </tr>
                       </tfoot>
@@ -122,13 +123,13 @@ class LocationsList extends React.Component {
 }
 
 @withRouter
-export default class Locations extends React.Component {
+export default class Areas extends React.Component {
 
   render(){
     return (
         <Row>
           <Col sm={12}>
-            <LocationsList {...this.props} />
+            <AreasList {...this.props} />
           </Col>
         </Row>
     );

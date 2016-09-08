@@ -6,11 +6,9 @@ import {withRouter} from 'react-router';
 import q from 'q';
 
 import FormBuilder from '../../form/FormBuilder';
-import { push as pushArea, loadAreas} from '../../model/areas';
-import { push as pushLocation, loadLocation , updateLocation} from '../../model/locations';
-import { set as setLocationAreas, load as loadLocationAreas } from '../../model/locationAreas';
-import { loadCountries } from '../../model/countries';
-import { setCountryLocations } from '../../model/countryLocations';
+import {pushArea, loadArea, updateArea} from '../../model/areas';
+import { loadLocations } from '../../model/locations';
+import { updateLocationAreas } from '../../model/locationAreas';
 
 
 import {
@@ -24,7 +22,7 @@ import {
 } from '@sketchpixy/rubix';
 
 
-class LocationForm extends React.Component {
+class AreaForm extends React.Component {
 
   constructor(props, state){
     super(props, state);
@@ -36,27 +34,27 @@ class LocationForm extends React.Component {
     const { edit } = this.state;
     const locationId = this.props.params.id;
 
-    let countriesDefer = q.defer();
+    let locationsDefer = q.defer();
     let promises = [];
 
-    loadCountries()
+    loadLocations()
         .then(snap =>{
-          let countries = snap.val();
-          countriesDefer.resolve(countries);
-          this.setState({countries});
+          let locations = snap.val();
+          locationsDefer.resolve(locations);
+          this.setState({locations});
         });
-    promises.push(countriesDefer.promise);
+    promises.push(locationsDefer.promise);
 
     if(edit === true){
-      let locationDefer = q.defer();
-      loadLocation(locationId)
-          .then(locationSnapshot =>{
-            const location = locationSnapshot.val();
-            locationDefer.resolve();
-            this.setState({location})
-          })
+      let areaDefer = q.defer();
+      loadArea(this.props.params.id)
+          .then(snap =>{
+            const area = snap.val();
+            areaDefer.resolve();
+            this.setState({area})
+          });
 
-      promises.push(locationDefer.promise);
+      promises.push(areaDefer.promise);
     }
 
     q.all(promises).then(_ => this.setState({loaded: true}));
@@ -67,27 +65,27 @@ class LocationForm extends React.Component {
     console.log('COUNTRIES', this.state.countries);
     let countries = [];
 
-    forEach(this.state.countries, (v, k) =>{
+    forEach(this.state.locations, (v, k) =>{
       countries.push({id: k, title: v.name});
     });
 
     return [
       {
-        title: "Country",
-        id: "country",
+        title: "State",
+        id: "location",
         type: "select",
-        default: this.state.edit ? this.state.location.country : Object.keys(this.state.countries)[0],
+        default: this.state.edit ? this.state.area.location : Object.keys(this.state.locations)[0],
         props: {
           componentClass: "select",
-          name: "country",
+          name: "location",
           options: countries
         }
       },
       {
-        title: "State name",
+        title: "Area name",
         id: "name",
         type: "text",
-        default: this.state.edit ? this.state.location.name : undefined,
+        default: this.state.edit ? this.state.area.name : undefined,
         props: {
           type: "text",
           name: "name"
@@ -99,11 +97,12 @@ class LocationForm extends React.Component {
   onSubmit(values){
 
     if(this.state.edit){
-      updateLocation(this.props.params.id, values).then(_ => this.props.router.push('locations'));
+      updateArea(this.props.params.id, values).then(_ => this.props.router.push('areas'));
     }
     else{
       console.log(values);
-      pushLocation(values);
+      let areaId = pushArea(values);
+      updateLocationAreas(values.location, {[areaId]: true});
       this.props.router.push('locations');
     }
 
@@ -130,7 +129,7 @@ class LocationForm extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Add new location </h3>
+                    <h3>Add new Area </h3>
                   </Col>
                 </Row>
               </Grid>
@@ -149,14 +148,15 @@ class LocationForm extends React.Component {
     );
   }
 }
+
 @withRouter
-export default class ManageLocations extends React.Component {
+export default class ManageAreas extends React.Component {
 
   render(){
     return (
         <Row>
           <Col sm={6} collapseRight>
-            <LocationForm {...this.props} />
+            <AreaForm {...this.props} />
           </Col>
         </Row>
     );

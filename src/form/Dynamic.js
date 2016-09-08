@@ -23,7 +23,6 @@ const Fields = ({ fields,type,title,id,onRemoveField }) =>{
                     <InputField type="text"
                                 controlId={`${id}[${k}]`}
                                 label={title}
-                                type="text"
                                 name={`${id}[${k}]`}/>;
                 break;
               case 'select':
@@ -50,9 +49,27 @@ const Fields = ({ fields,type,title,id,onRemoveField }) =>{
 };
 
 export default class Dynamic extends Component {
-  constructor(property, state){
-    super(property);
-    this.state = {fields: []}
+
+  constructor(props){
+    super(props);
+
+    let fields = [];
+
+    console.log('DDDD', props.defaultValues);
+
+
+    _.forEach(props.defaultValues, (defaultValue, k) =>{
+
+      _.forEach(props.schema, (v, k) =>{
+
+        fields.push({
+          type: v.type, id: v.id, value: null
+        })
+      })
+
+    })
+
+    this.state = {fields: props.defaultValues}
   }
 
   appendField(){
