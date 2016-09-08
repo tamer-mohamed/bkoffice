@@ -17,10 +17,9 @@ class App extends React.Component {
   render(){
     return (
         <MainContainer {...this.props}>
+          <Sidebar />
+          <Header />
           <div id='body'>
-
-            <Sidebar />
-            <Header />
             <Grid>
               <Row>
                 <Col xs={12}>
