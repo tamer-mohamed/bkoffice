@@ -6,6 +6,7 @@ import remove from 'lodash/remove';
 import * as dataAreas from '../../model/areas';
 import * as dataLocationAreas from '../../model/locationAreas';
 import { withRouter,Link } from 'react-router';
+import { Icon } from '@sketchpixy/rubix';
 
 
 import {
@@ -43,14 +44,17 @@ class AreasList extends React.Component {
           responsive: true,
           columnDefs: [
             {targets: [-1, -3], className: 'dt-body-right'}
-          ]
+          ],
+          pagingType: "full_numbers",
+          pading:true
+
         });
   }
 
   handleRemove(id, data){
     let confirm = window.confirm('Are you sure you want to delete ' + data.name + '?!');
     if(confirm){
-      dataLocationAreas.remove(data.location,id).then(() => {
+      dataLocationAreas.remove(data.location, id).then(() =>{
         dataAreas.removeArea(id)
             .then(_ =>{
               console.log('DONE!!');
@@ -83,9 +87,13 @@ class AreasList extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Locations</h3>
+                    <h3>Areas</h3>
                     <span className="pull-right">
-                      <Link to="areas/add"><Button bsStyle="primary">Add</Button></Link>
+                      <Link to="areas/add">
+                        <Button style={{marginBottom:"20px"}} bsStyle="lightgreen">
+                          <Icon glyph="glyphicon-plus-sign"/>{' '}Add
+                        </Button>
+                      </Link>
                     </span>
                   </Col>
                 </Row>

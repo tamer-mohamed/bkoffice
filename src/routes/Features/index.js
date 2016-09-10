@@ -4,6 +4,7 @@ import forEach from 'lodash/foreach';
 import pull from 'lodash/pull';
 import remove from 'lodash/remove';
 import * as dataFeatures from '../../model/realstate/features';
+import { Icon } from '@sketchpixy/rubix';
 import { withRouter,Link } from 'react-router';
 
 
@@ -82,7 +83,11 @@ class FeaturesList extends React.Component {
                     <h3>Features</h3>
                     <p>What realstates shall contains? pool, floors, apartments ... etc</p>
                     <span className="pull-right">
-                      <Link to="/realstate/features/add"><Button bsStyle="primary">Add</Button></Link>
+                      <Link to="/realstate/features/add">
+                        <Button style={{marginBottom:"20px"}} bsStyle="lightgreen">
+                          <Icon glyph="glyphicon-plus-sign"/>{' '}Add
+                        </Button>
+                      </Link>
                     </span>
                   </Col>
                 </Row>

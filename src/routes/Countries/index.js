@@ -4,6 +4,7 @@ import forEach from 'lodash/foreach';
 import pull from 'lodash/pull';
 import remove from 'lodash/remove';
 import * as countriesModel from '../../model/countries';
+import { Icon } from '@sketchpixy/rubix';
 import { withRouter,Link } from 'react-router';
 
 
@@ -77,7 +78,11 @@ class LocationsList extends React.Component {
                   <Col xs={12}>
                     <h3>Countries</h3>
                     <span className="pull-right">
-                      <Link to="countries/add"><Button bsStyle="primary">Add</Button></Link>
+                      <Link to="countries/add">
+                        <Button style={{marginBottom:"20px"}} bsStyle="lightgreen">
+                          <Icon glyph="glyphicon-plus-sign"/>{' '}Add
+                        </Button>
+                        </Link>
                     </span>
                   </Col>
                 </Row>

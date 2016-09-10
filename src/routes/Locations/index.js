@@ -6,7 +6,7 @@ import remove from 'lodash/remove';
 import * as dataLocations from '../../model/locations';
 import * as dataAreas from '../../model/areas';
 import { withRouter,Link } from 'react-router';
-
+import { Icon } from '@sketchpixy/rubix';
 
 import {
     Row,
@@ -82,7 +82,11 @@ class LocationsList extends React.Component {
                   <Col xs={12}>
                     <h3>Locations</h3>
                     <span className="pull-right">
-                      <Link to="locations/add"><Button bsStyle="primary">Add</Button></Link>
+                      <Link to="locations/add">
+                        <Button style={{marginBottom:"20px"}} bsStyle="lightgreen">
+                          <Icon glyph="glyphicon-plus-sign"/>{' '}Add
+                        </Button>
+                      </Link>
                     </span>
                   </Col>
                 </Row>
