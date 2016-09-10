@@ -6,7 +6,7 @@ const DATA_REF = 'features';
 export function pushFeature(data){
   console.log(`Pushing ${DATA_REF}`, data);
   let id = pushData(DATA_REF, data);
-  addTranslation(`${DATA_REF}/${id}`, data);
+  addTranslation(`${DATA_REF}/${id}`, {name: data.name});
 
   return id;
 }
