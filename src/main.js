@@ -21,7 +21,10 @@ render(routes, () =>{
 if(module.hot){
   module.hot.accept('./routes', () =>{
     // reload routes again
-    require('./routes').default;
-    render(routes);
+    let routes = require('./routes').default;
+    render(routes,
+        () =>{
+          console.log('Completed rendering!');
+        });
   });
 }

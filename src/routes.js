@@ -20,6 +20,10 @@ import ManageLocations from './routes/Locations/Manage';
 import Areas from './routes/Areas/index';
 import ManageAreas from './routes/Areas/Manage';
 
+import Features from './routes/Features/index';
+import ManageFeatures from './routes/Features/Manage';
+
+
 class App extends React.Component {
   render(){
     return (
@@ -57,6 +61,12 @@ export default (
         <Route path="countries" component={Countries}/>
         <Route path="countries/add" component={ManageCountries}/>
         <Route path="countries/:id" component={ManageCountries}/>
+
+
+        <Route path="/realstate/features" component={Features}/>
+        <Route path="/realstate/features/add" component={ManageFeatures}/>
+        <Route path="/realstate/features/:id" component={ManageFeatures}/>
+
 
       </Route>
 

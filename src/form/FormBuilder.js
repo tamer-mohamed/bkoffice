@@ -6,6 +6,7 @@ import { Button } from '@sketchpixy/rubix';
 import InputField from './Input';
 import Select from './Select';
 import Dynamic from './Dynamic';
+import GroupRadio from './GroupRadio';
 
 
 class FormBuilder extends React.Component {
@@ -23,8 +24,13 @@ class FormBuilder extends React.Component {
               case 'select':
                 return <Select key={k} value={field.default} label={field.title}
                                controlId={field.id} {...field.props} />;
-              case "dynamic":
+              case 'dynamic':
                 return <Dynamic defaultValues={field.default} id={field.id} key={k}
+                                schema={field.schema}
+                                controlId={field.id} {...field.props} />;
+                break;
+              case 'radios':
+                return <GroupRadio defaultValue={field.default} id={field.id} key={k}
                                 schema={field.schema}
                                 controlId={field.id} {...field.props} />;
                 break;
