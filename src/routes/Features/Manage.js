@@ -104,7 +104,9 @@ class FeaturesForm extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Add new Area </h3>
+                    <h3>
+                      { this.state.edit ? <span> Edit {this.state.feature.name}</span> : <span>Add new feature</span> }
+                    </h3>
                   </Col>
                 </Row>
               </Grid>

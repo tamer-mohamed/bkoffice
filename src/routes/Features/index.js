@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import forEach from 'lodash/foreach';
 import pull from 'lodash/pull';
 import remove from 'lodash/remove';
+import size from 'lodash/size';
 import * as dataFeatures from '../../model/realstate/features';
-import { Icon } from '@sketchpixy/rubix';
+import { Icon,Alert } from '@sketchpixy/rubix';
 import { withRouter,Link } from 'react-router';
 
 
@@ -97,23 +98,28 @@ class FeaturesList extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <Table ref={(c) => this.locationTable = c} className='display' cellSpacing='0' width='100%'>
-                      <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tfoot>
-                      <tr>
-                        <th>Name</th>
-                        <th></th>
-                      </tr>
-                      </tfoot>
-                      <tbody>
-                      {rows}
-                      </tbody>
-                    </Table>
+                    {size(this.state.features) === 0 ?
+                        <Alert info>
+                          <strong>Heads up! </strong><span>No reacords to show at the moment ..</span>
+                        </Alert> :
+                        <Table ref={(c) => this.locationTable = c} className='display' cellSpacing='0' width='100%'>
+                          <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th></th>
+                          </tr>
+                          </thead>
+                          <tfoot>
+                          <tr>
+                            <th>Name</th>
+                            <th></th>
+                          </tr>
+                          </tfoot>
+                          <tbody>
+                          {rows}
+                          </tbody>
+                        </Table>
+                    }
                   </Col>
                 </Row>
               </Grid>

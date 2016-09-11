@@ -84,7 +84,9 @@ class CountryForm extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Add new country </h3>
+                    <h3>
+                      { this.state.edit ? <span> Edit {this.state.country.name}</span> : <span>Add new country</span> }
+                    </h3>
                   </Col>
                 </Row>
               </Grid>

@@ -63,10 +63,10 @@ class AreaForm extends React.Component {
 
   getSchema(){
     console.log('COUNTRIES', this.state.countries);
-    let countries = [];
+    let locations = [];
 
     forEach(this.state.locations, (v, k) =>{
-      countries.push({id: k, title: v.name});
+      locations.push({id: k, title: v.name});
     });
 
     return [
@@ -78,7 +78,7 @@ class AreaForm extends React.Component {
         props: {
           componentClass: "select",
           name: "location",
-          options: countries
+          options: locations
         }
       },
       {
@@ -103,16 +103,9 @@ class AreaForm extends React.Component {
       console.log(values);
       let areaId = pushArea(values);
       updateLocationAreas(values.location, {[areaId]: true});
-      this.props.router.push('locations');
+      this.props.router.push('areas');
     }
 
-
-    /* let locationTitle = values.title;
-     pushArea(values.areas).then(areaIds =>{
-
-     //let areaIds = snapshot.map(area => area.areaId);
-     setLocationAreas(locationId, areaIds).then(_ => this.props.router.push('locations'));
-     });*/
   }
 
   render(){
@@ -129,7 +122,9 @@ class AreaForm extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Add new Area </h3>
+                    <h3>
+                      { this.state.edit ? <span> Edit {this.state.area.name}</span> : <span>Add new area</span> }
+                    </h3>
                   </Col>
                 </Row>
               </Grid>

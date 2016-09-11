@@ -6,9 +6,7 @@ import {withRouter} from 'react-router';
 import q from 'q';
 
 import FormBuilder from '../../form/FormBuilder';
-import { push as pushArea, loadAreas} from '../../model/areas';
 import { push as pushLocation, loadLocation , updateLocation} from '../../model/locations';
-import { set as setLocationAreas, load as loadLocationAreas } from '../../model/locationAreas';
 import { loadCountries } from '../../model/countries';
 import { setCountryLocations } from '../../model/countryLocations';
 
@@ -130,7 +128,9 @@ class LocationForm extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Add new location </h3>
+                    <h3>
+                      { this.state.edit ? <span> Edit {this.state.location.name}</span> : <span>Add new location</span> }
+                    </h3>
                   </Col>
                 </Row>
               </Grid>

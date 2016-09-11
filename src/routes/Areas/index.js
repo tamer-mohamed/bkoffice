@@ -46,7 +46,7 @@ class AreasList extends React.Component {
             {targets: [-1, -3], className: 'dt-body-right'}
           ],
           pagingType: "full_numbers",
-          pading:true
+          pageLength:2
 
         });
   }

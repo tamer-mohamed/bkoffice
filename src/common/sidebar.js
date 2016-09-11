@@ -32,15 +32,21 @@ class ApplicationSidebar extends React.Component {
                     <div className='sidebar-header'>PAGES</div>
 
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Dashboard' href='/'/>
+
+                    <SidebarDivider />
+
+                    <div className='sidebar-header'>LOCATIONS</div>
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Countries' href='/countries'/>
-                    <SidebarNavItem glyph='icon-fontello-gauge' name='Locations' href='/locations'/>
+                    <SidebarNavItem glyph='glyphicon-map-marker' name='Locations' href='/locations'/>
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Areas' href='/areas'/>
 
-                    <SidebarNavItem glyph='icon-fontello-gauge' name='Realstate'>
-                      <SidebarNav>
-                        <SidebarNavItem glyph='icon-fontello-gauge' name='Features' href='/realstate/features'/>
-                      </SidebarNav>
-                    </SidebarNavItem>
+                    <SidebarDivider />
+
+                    <div className='sidebar-header'>REALSTATE</div>
+                    <SidebarNavItem glyph='glyphicon-star' name='Features' href='/realstate/features'/>
+                    <SidebarNavItem glyph='icon-fontello-gauge' name='Types' href='/realstate/types'/>
+                    <SidebarNavItem glyph='icon-fontello-gauge' name='Categories' href='/realstate/categories'/>
+                    <SidebarNavItem glyph='icon-fontello-gauge' name='Views' href='/realstate/views'/>
 
 
                   </SidebarNav>

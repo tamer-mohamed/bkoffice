@@ -7,6 +7,9 @@ import InputField from './Input';
 import Select from './Select';
 import Dynamic from './Dynamic';
 import GroupRadio from './GroupRadio';
+import GroupCheckbox from './GroupCheckbox';
+import Textarea from './Textarea';
+
 
 
 class FormBuilder extends React.Component {
@@ -31,8 +34,15 @@ class FormBuilder extends React.Component {
                 break;
               case 'radios':
                 return <GroupRadio defaultValue={field.default} id={field.id} key={k}
-                                schema={field.schema}
                                 controlId={field.id} {...field.props} />;
+              break;
+              case 'checkboxes':
+                return <GroupCheckbox defaultValue={field.default} title={field.title} id={field.id} key={k}
+                                   controlId={field.id} {...field.props} />;
+                break;
+              case 'textarea':
+                return <Textarea value={field.default} title={field.title} id={field.id} key={k}
+                                      controlId={field.id} {...field.props} />;
                 break;
             }
           })}

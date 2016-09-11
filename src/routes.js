@@ -23,6 +23,15 @@ import ManageAreas from './routes/Areas/Manage';
 import Features from './routes/Features/index';
 import ManageFeatures from './routes/Features/Manage';
 
+import Types from './routes/Types/index';
+import ManageTypes from './routes/Types/Manage';
+
+
+import Categories from './routes/Categories/index';
+import ManageCategories from './routes/Categories/Manage';
+
+import RealstateViews from './routes/RealstateViews/index';
+import ManageRealstateViews from './routes/RealstateViews/Manage';
 
 class App extends React.Component {
   render(){
@@ -67,6 +76,17 @@ export default (
         <Route path="/realstate/features/add" component={ManageFeatures}/>
         <Route path="/realstate/features/:id" component={ManageFeatures}/>
 
+        <Route path="/realstate/types" component={Types}/>
+        <Route path="/realstate/types/add" component={ManageTypes}/>
+        <Route path="/realstate/types/:id" component={ManageTypes}/>
+
+        <Route path="/realstate/categories" component={Categories}/>
+        <Route path="/realstate/categories/add" component={ManageCategories}/>
+        <Route path="/realstate/categories/:id" component={ManageCategories}/>
+
+        <Route path="/realstate/views" component={RealstateViews}/>
+        <Route path="/realstate/views/add" component={ManageRealstateViews}/>
+        <Route path="/realstate/views/:id" component={ManageRealstateViews}/>
 
       </Route>
 
