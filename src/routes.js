@@ -33,6 +33,9 @@ import ManageCategories from './routes/Categories/Manage';
 import RealstateViews from './routes/RealstateViews/index';
 import ManageRealstateViews from './routes/RealstateViews/Manage';
 
+import SitePages from './routes/SitePages/index';
+import ManageSitePages from './routes/SitePages/Manage';
+
 class App extends React.Component {
   render(){
     return (
@@ -87,6 +90,10 @@ export default (
         <Route path="/realstate/views" component={RealstateViews}/>
         <Route path="/realstate/views/add" component={ManageRealstateViews}/>
         <Route path="/realstate/views/:id" component={ManageRealstateViews}/>
+
+        <Route path="/pages" component={SitePages}/>
+        <Route path="/pages/add" component={ManageSitePages}/>
+        <Route path="/pages/:id" component={ManageSitePages}/>
 
       </Route>
 

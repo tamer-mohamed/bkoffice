@@ -9,7 +9,7 @@ import Dynamic from './Dynamic';
 import GroupRadio from './GroupRadio';
 import GroupCheckbox from './GroupCheckbox';
 import Textarea from './Textarea';
-
+import RichEditor from './RichText';
 
 
 class FormBuilder extends React.Component {
@@ -34,15 +34,19 @@ class FormBuilder extends React.Component {
                 break;
               case 'radios':
                 return <GroupRadio defaultValue={field.default} id={field.id} key={k}
-                                controlId={field.id} {...field.props} />;
-              break;
+                                   controlId={field.id} {...field.props} />;
+                break;
               case 'checkboxes':
                 return <GroupCheckbox defaultValue={field.default} title={field.title} id={field.id} key={k}
-                                   controlId={field.id} {...field.props} />;
+                                      controlId={field.id} {...field.props} />;
                 break;
               case 'textarea':
                 return <Textarea value={field.default} title={field.title} id={field.id} key={k}
-                                      controlId={field.id} {...field.props} />;
+                                 controlId={field.id} {...field.props} />;
+                break;
+              case 'richEditor':
+                return <RichEditor key={k} controlId={field.id} title={field.title}
+                                   defaultValue={field.default} {...field.props}/>
                 break;
             }
           })}
