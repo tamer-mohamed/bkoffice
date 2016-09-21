@@ -36,6 +36,8 @@ import ManageRealstateViews from './routes/RealstateViews/Manage';
 import SitePages from './routes/SitePages/index';
 import ManageSitePages from './routes/SitePages/Manage';
 
+import Translations from './routes/Translations';
+
 class App extends React.Component {
   render(){
     return (
@@ -94,6 +96,8 @@ export default (
         <Route path="/pages" component={SitePages}/>
         <Route path="/pages/add" component={ManageSitePages}/>
         <Route path="/pages/:id" component={ManageSitePages}/>
+
+        <Route path="/translations/:entityId" component={Translations}/>
 
       </Route>
 

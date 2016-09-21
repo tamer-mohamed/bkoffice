@@ -33,8 +33,10 @@ class ApplicationSidebar extends React.Component {
 
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Dashboard' href='/'/>
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Pages' href='/pages'/>
-
                     <SidebarDivider />
+
+                    <div className='sidebar-header'>TRANSLATIONS</div>
+                    <SidebarNavItem glyph='icon-fontello-gauge' name='Locations' href='/translations/locations'/>
 
                     <div className='sidebar-header'>LOCATIONS</div>
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Countries' href='/countries'/>
