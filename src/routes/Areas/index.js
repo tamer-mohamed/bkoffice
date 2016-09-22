@@ -1,3 +1,5 @@
+import "bower_components/datatables/media/js/jquery.dataTables.js";
+import "js/vendor/datatables/responsive.js";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import forEach from 'lodash/foreach';
@@ -37,19 +39,21 @@ class AreasList extends React.Component {
     this.fetchData();
   }
 
-  componentDidMount(){
-    $(ReactDOM.findDOMNode(this.locationTable))
+  renderDataTable(){
+    $('#dataTable')
         .addClass('nowrap')
         .dataTable({
           responsive: true,
           columnDefs: [
-            {targets: [-1, -3], className: 'dt-body-right'}
-          ],
-          pagingType: "full_numbers",
-          pageLength:2
-
+            {targets: [1], className: 'dt-body-right', orderable: false},
+          ]
         });
   }
+
+  componentDidUpdate(){
+    this.renderDataTable();
+  }
+
 
   handleRemove(id, data){
     let confirm = window.confirm('Are you sure you want to delete ' + data.name + '?!');
@@ -103,7 +107,8 @@ class AreasList extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <Table ref={(c) => this.locationTable = c} className='display' cellSpacing='0' width='100%'>
+                    <Table ref={(c) => this.locationTable = c} id="dataTable" className='display' cellSpacing='0'
+                           width='100%'>
                       <thead>
                       <tr>
                         <th>Area</th>

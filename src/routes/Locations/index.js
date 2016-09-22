@@ -36,13 +36,13 @@ class LocationsList extends React.Component {
     this.fetchData();
   }
 
-  componentDidMount(){
+  componentDidUpdate(){
     $(ReactDOM.findDOMNode(this.locationTable))
         .addClass('nowrap')
         .dataTable({
           responsive: true,
           columnDefs: [
-            {targets: [-1, -3], className: 'dt-body-right'}
+            {targets: [1], className: 'dt-body-right', orderable: false},
           ]
         });
   }
@@ -100,14 +100,12 @@ class LocationsList extends React.Component {
                       <thead>
                       <tr>
                         <th>State</th>
-                        <th>Country</th>
                         <th></th>
                       </tr>
                       </thead>
                       <tfoot>
                       <tr>
                         <th>State</th>
-                        <th>Country</th>
                         <th></th>
                       </tr>
                       </tfoot>

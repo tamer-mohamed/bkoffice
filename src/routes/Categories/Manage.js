@@ -37,8 +37,8 @@ class TypesForm extends React.Component {
     if(edit === true){
       dataCategories.loadRealstateCategory(categoryId)
           .then(snap =>{
-            const type = snap.val();
-            this.setState({type,loaded:true})
+            const category = snap.val();
+            this.setState({category,loaded:true})
           });
     }
   }
@@ -49,7 +49,7 @@ class TypesForm extends React.Component {
         title: "Category name",
         id: "name",
         type: "text",
-        default: this.state.edit ? this.state.type.name : undefined,
+        default: this.state.edit ? this.state.category.name : undefined,
         props: {
           type: "text",
           name: "name"

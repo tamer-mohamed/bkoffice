@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+
 import forEach from 'lodash/foreach';
 import pull from 'lodash/pull';
 import remove from 'lodash/remove';
@@ -37,15 +39,18 @@ class CategoriesList extends React.Component {
     this.fetchData();
   }
 
-  componentDidMount(){
-    $(ReactDOM.findDOMNode(this.locationTable))
-        .addClass('nowrap')
-        .dataTable({
-          responsive: true,
-          columnDefs: [
-            {targets: [-1, -3], className: 'dt-body-right'}
-          ]
-        });
+  componentDidUpdate(){
+    console.log($(ReactDOM.findDOMNode(this.refs.dataTable)));
+    console.log('===CLALLED');
+    let element = $('#dataTable');
+    element.addClass('nowrap');
+    element.dataTable({
+      responsive: true,
+      columnDefs: [
+        {targets: [1], className: 'dt-body-right'},
+        {targets: [2], orderable: false}
+      ]
+    });
   }
 
   handleRemove(id, data){
@@ -66,12 +71,14 @@ class CategoriesList extends React.Component {
 
     let rows = [];
     forEach(this.state.categories, (v, k) =>{
-      rows.push(<tr key={k}>
-        <td><Link to={`/realstate/categories/${k}`}>{v.name}</Link></td>
-        <td>
-          <Button bsStyle="danger" onClick={e => this.handleRemove(k,v)}> X </Button>
-        </td>
-      </tr>)
+      rows.push(
+          <tr key={k}>
+            <td><Link to={`/realstate/categories/${k}`}>{v.name}</Link></td>
+            <td>
+              <Button bsStyle="danger" onClick={e => this.handleRemove(k,v)}> X </Button>
+            </td>
+          </tr>
+      )
     });
 
     return (
@@ -102,7 +109,8 @@ class CategoriesList extends React.Component {
                         <Alert info>
                           <strong>Heads up! </strong><span>No reacords to show at the moment ..</span>
                         </Alert> :
-                        <Table ref={(c) => this.locationTable = c} className='display' cellSpacing='0' width='100%'>
+                        <Table ref="dataTable" id='dataTable' className='display' cellSpacing='0'
+                               width='100%'>
                           <thead>
                           <tr>
                             <th>Name</th>

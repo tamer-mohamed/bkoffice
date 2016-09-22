@@ -37,17 +37,14 @@ class SitePagesList extends React.Component {
     this.fetchData();
   }
 
-  componentDidMount(){
+  componentDidUpdate(){
     $(ReactDOM.findDOMNode(this.locationTable))
         .addClass('nowrap')
         .dataTable({
           responsive: true,
           columnDefs: [
-            {targets: [-1, -3], className: 'dt-body-right'}
-          ],
-          pagingType: "full_numbers",
-          pageLength:2
-
+            {targets: [1], className: 'dt-body-right', orderable: false},
+          ]
         });
   }
 

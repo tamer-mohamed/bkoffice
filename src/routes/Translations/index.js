@@ -41,8 +41,8 @@ export default class XEditable extends React.Component {
   renderEditable(){
     $('.xeditable').editable({
       mode: this.state.mode,
-      success: function(response, newValue) {
-       console.log(newValue);
+      success: function(response, newValue){
+        console.log(newValue);
       }
     });
 
@@ -60,8 +60,19 @@ export default class XEditable extends React.Component {
 
   componentWillMount(){
     const {entityId } = this.props.params;
+    let fields = [];
 
-    dataTranslation.getTranslationKeywords(entityId, this.state.fields)
+    switch(entityId){
+      case "locations":
+      case "areas":
+      case "types":
+      case "views":
+        fields = ['name'];
+        break;
+      default:
+        console.warn('Entity is not defined in the translation set!');
+    }
+    dataTranslation.getTranslationKeywords(entityId, fields)
         .then((entries) => this.setState({entries}));
 
     //entitentityIdi
