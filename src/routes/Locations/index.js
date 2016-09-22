@@ -80,7 +80,7 @@ class LocationsList extends React.Component {
               <Grid>
                 <Row>
                   <Col xs={12}>
-                    <h3>Locations</h3>
+                    <h3>States</h3>
                     <span className="pull-right">
                       <Link to="locations/add">
                         <Button style={{marginBottom:"20px"}} bsStyle="lightgreen">

@@ -45,7 +45,7 @@ class ApplicationSidebar extends React.Component {
 
                     <div className='sidebar-header'>LOCATIONS</div>
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Countries' href='/countries'/>
-                    <SidebarNavItem glyph='glyphicon-map-marker' name='Locations' href='/locations'/>
+                    <SidebarNavItem glyph='glyphicon-map-marker' name='States' href='/locations'/>
                     <SidebarNavItem glyph='icon-fontello-gauge' name='Areas' href='/areas'/>
 
                     <SidebarDivider />
