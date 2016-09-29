@@ -1,5 +1,3 @@
-import "bower_components/datatables/media/js/jquery.dataTables.js";
-import "js/vendor/datatables/responsive.js";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import forEach from 'lodash/foreach';

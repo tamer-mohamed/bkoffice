@@ -91,6 +91,7 @@ class TypesForm extends React.Component {
         type: "select",
         default: this.state.edit ? this.state.type.location : Object.keys(this.state.locations)[0],
         props: {
+          multiple:true,
           componentClass: "select",
           name: "location",
           options: locations

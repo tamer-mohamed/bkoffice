@@ -5,6 +5,18 @@ import q from 'q';
 const langs = ['ar', 'en'];
 const defaultLang = 'en';
 
+
+export function getTranslations(entityId, recordId){
+  let query;
+
+  if(recordId)
+    query = getData(`translations/${entityId}/${recordId}`);
+  else
+    query = getData(`translations/${entityId}`);
+
+  return query;
+}
+
 export function getTranslationKeywords(entityId, fields){
 
   let promise = q.defer();
@@ -17,10 +29,13 @@ export function getTranslationKeywords(entityId, fields){
               _.forEach(fields, (v, k) =>{
                 filteredData[v] = originalRecord[v];
               });
+              filteredData['_.id'] = k;
 
               return filteredData
             }
         );
+
+        console.log(records);
         promise.resolve(records);
       })
       .catch(() =>{
@@ -37,8 +52,7 @@ export function addTranslation(ref, data){
 }
 
 export function updateTranslation(ref, data){
-  console.log('updating translation for default lang', defaultLang);
-  return update(`translations/${ref}/${defaultLang}`, data);
+  return update(`translations/${ref}`, data);
 }
 
 

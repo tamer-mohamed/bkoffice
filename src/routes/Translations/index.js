@@ -1,4 +1,5 @@
 import React from 'react';
+import EditableField from '../../form/Editable';
 import * as dataTranslation from '../../model/translation';
 
 import {
@@ -38,25 +39,6 @@ export default class XEditable extends React.Component {
     refresh: XEditable.getCounter() // used to redraw the component
   };
 
-  renderEditable(){
-    $('.xeditable').editable({
-      mode: this.state.mode,
-      success: function(response, newValue){
-        console.log(newValue);
-      }
-    });
-
-
-    var self = this;
-    $('#user .editable').on('hidden', function(e, reason){
-      if(reason === 'save' || reason === 'nochange'){
-        var $next = $(this).closest('tr').next().find('.editable');
-
-        console.log(reason);
-        console.log($next.html('val'));
-      }
-    });
-  }
 
   componentWillMount(){
     const {entityId } = this.props.params;
@@ -73,24 +55,20 @@ export default class XEditable extends React.Component {
         console.warn('Entity is not defined in the translation set!');
     }
     dataTranslation.getTranslationKeywords(entityId, fields)
-        .then((entries) => this.setState({entries}));
+        .then((entries) =>{
+          dataTranslation.getTranslations(entityId)
+              .then((entityTranslations) =>{
+                const translations = entityTranslations.val();
+                this.setState({entries, translations});
+              });
+        });
 
-    //entitentityIdi
-
-    XEditable.resetCounter();
-  }
-
-  componentDidUpdate(){
-    this.renderEditable();
-  }
-
-  componentDidMount(){
-
-    this.renderEditable();
   }
 
   render(){
-    if(!this.state.entries)
+    let transValue;
+
+    if(!this.state.entries || !this.state.translations)
       return <span> Loading </span>;
     return (
         <Row>
@@ -110,17 +88,35 @@ export default class XEditable extends React.Component {
                 <PanelBody style={{padding: 25}}>
 
                   <Table striped bordered id='user' style={{margin: 0}}>
+                    <thead>
+                    <tr>
+                      <td>
+                        Keyword (English)
+                      </td>
+                      <td>
+                        Arabic
+                      </td>
+                    </tr>
+                    </thead>
                     <tbody>
 
                     { /* map goes here */}
                     {
                       this.state.entries.map((entry, i) =>{
+                        {
+                          console.log(i)
+                        }
                         return <tr key={`${i}`}>
                           <td style={{width: 300}}>{entry.name}</td>
                           <td>
-                            <a href='#' key={`${i}-${this.state.refresh}`} className='xeditable' data-type='text'
-                               data-title='Enter username'>superuser</a>
+                            <EditableField recordId={entry['_.id']} entityId={this.props.params.entityId}
+                                           key={`${i}-${this.state.refresh}`} lang="ar"
+                                           fieldId={'name'}
+                                           value={this.state.translations[entry['_.id']]
+                            && this.state.translations[entry['_.id']]['ar'] &&
+                            this.state.translations[entry['_.id']]['ar']['name'] ? this.state.translations[entry['_.id']]['ar']['name'] : null}/>
                           </td>
+
                         </tr>
                       })
                     }

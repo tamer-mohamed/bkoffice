@@ -1,14 +1,23 @@
 import React , {Component} from 'react';
+import reactDOM from 'react-dom';
+import {updateTranslation} from '../model/translation';
 
 export default class Editable extends Component {
 
   componentDidMount(){
-    $(this.refs.editable.getDOMNode()).editable()
+    $('.' + this.props.recordId).editable({
+      mode: 'inline',
+      success: (response, newValue)=>{
+        const {entityId, lang,recordId ,fieldId} = this.props;
+        updateTranslation(`${entityId}/${recordId}/${lang}`, {
+          [fieldId]: newValue
+        }).then(()=> console.log('dDONE'));
+      }
+    })
   }
 
   render(){
-    console.log(this.props.entityId);
-    return <p>{this.props.name}: <a href="#" ref="editable" name={this.prop.name} data-type="text"
-                                    data-title="Edit value">{this.props.value}</a></p>
+    return <p><a href="#" ref="editable" className={this.props.recordId} data-type="text"
+                 data-title="Edit value">{this.props.value || 'Empty'}</a></p>
   }
 }
